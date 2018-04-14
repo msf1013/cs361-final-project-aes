@@ -18,15 +18,18 @@ def expand_key(key_bytes, key_size):
         #print(expanded_key)
         temp = expanded_key[4*(i-1):4*i]
         #print
-        #print(temp)
+        if i == n_k:
+            print(temp)
         if i % n_k == 0:
             temp = temp[1:4] + [temp[0]]
+            if i == n_k:
+                print(temp)
             temp[0] = sbox[temp[0]]
             temp[1] = sbox[temp[1]]
             temp[2] = sbox[temp[2]]
             temp[3] = sbox[temp[3]]
-            con = r_con[i // n_k]
-            temp[0] = temp[0] ^ int.from_bytes(con, byteorder="little", signed=False)
+            con = r_con[i // n_k - 1]
+            temp[0] = temp[0] ^ int.from_bytes(con, byteorder="big", signed=False)
             temp[1] = temp[1] ^ 0
             temp[2] = temp[2] ^ 0
             temp[3] = temp[3] ^ 0
