@@ -1,5 +1,6 @@
 # AES algorithm
 import sys
+import array
 from common import expand_key
 from encrypt import encrypt
 from decrypt import decrypt
@@ -31,10 +32,14 @@ mode             = options['--mode']
 # Call encryption or decryption algorithm accordingly
 #input_file  = open(input_file_name, "rb")
 #key_file    = open(key_file_name, "rb")
-#output_file = open(output_file_name, "wb")
+output_file = open(output_file_name, "wb")
 
 #input_bytes = input_file.read()
 #key_bytes = key_file.read()
+
+#print("INPUT BYTES")
+#print(input_bytes)
+input_bytes = bytearray.fromhex("32 43 f6 a8 88 5a 30 8d 31 31 98 a2 e0 37 07 34")
 key_bytes = bytearray.fromhex("2b 7e 15 16 28 ae d2 a6 ab f7 15 88 09 cf 4f 3c")
 key_size = 128
 expanded_key = expand_key(key_bytes, key_size) # TODO: Key expansion
@@ -43,6 +48,8 @@ print(expanded_key)
 
 if mode == 'encrypt':
     output_bytes = encrypt(input_bytes, expanded_key, key_size)
-    output_file.write(output_bytes)
+    print(output_bytes)
+    flat_output_bytes = [byte for word in output_bytes for byte in word]
+    output_file.write(array.array('B', flat_output_bytes).tostring())
 else:
     decrypt()
