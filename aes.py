@@ -44,9 +44,14 @@ expanded_key = expand_key(key_bytes, key_size)
 # Call encryption or decryption algorithm accordingly
 if mode == 'encrypt':
     output_bytes = encrypt(input_bytes, expanded_key, key_size)
-    output_bytes = [ str('%02X' % byte) for byte in output_bytes ]
-    output_file.write("".join(output_bytes))
 else:
     output_bytes = decrypt(input_bytes, expanded_key, key_size)
-    output_bytes = [ str('%02X' % byte) for byte in output_bytes ]
-    output_file.write("".join(output_bytes))
+
+# Write output to file
+output_bytes = [ str('%02X' % byte) for byte in output_bytes ]
+output_file.write("".join(output_bytes))
+
+# Close files
+input_file.close()
+key_file.close()
+output_file.close()
