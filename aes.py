@@ -47,4 +47,6 @@ if mode == 'encrypt':
     output_bytes = [ str('%02X' % byte) for byte in output_bytes ]
     output_file.write("".join(output_bytes))
 else:
-    decrypt()
+    output_bytes = decrypt(input_bytes, expanded_key, key_size)
+    output_bytes = [ str('%02X' % byte) for byte in output_bytes ]
+    output_file.write("".join(output_bytes))
