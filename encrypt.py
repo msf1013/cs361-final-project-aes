@@ -7,7 +7,12 @@ def encrypt(input_bytes, expanded_key, key_size):
     # Encrypt each block of input plaintext
     output_bytes = []
     for i in range(0, len(input_bytes), 16):
-        output_bytes += cipher(input_bytes[i:i+16], key_size, expanded_key)
+        partial = cipher(input_bytes[i:i+16], key_size, expanded_key)
+        
+        for c in range(0, 4):
+            for r in range(0, 4):
+                output_bytes.append(partial[r][c])
+
     return output_bytes
 
 def cipher(input_bytes, key_size, expanded_key):
