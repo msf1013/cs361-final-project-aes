@@ -18,8 +18,8 @@ def expand_key(key_bytes, key_size):
         #print(expanded_key)
         temp = expanded_key[4*(i-1):4*i]
         #print
-        if i == n_k:
-            print(temp)
+        #if i == n_k:
+        #    print(temp)
         if i % n_k == 0:
             temp = temp[1:4] + [temp[0]]
             if i == n_k:

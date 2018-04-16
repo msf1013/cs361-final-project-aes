@@ -1,5 +1,6 @@
 # AES algorithm
 import sys
+import array
 from common import expand_key
 from encrypt import encrypt
 from decrypt import decrypt
@@ -29,14 +30,12 @@ output_file_name = options['--outputfile']
 mode             = options['--mode']
 
 # Read input files
-input_file  = open(input_file_name, "r+")
-key_file    = open(key_file_name, "r+")
-output_file = open(output_file_name, "w+")
+input_file  = open(input_file_name, "rb")
+key_file    = open(key_file_name, "rb")
+output_file = open(output_file_name, "wb")
 
-input_string = input_file.read()
-key_string   = key_file.read()
-input_bytes = bytearray.fromhex(input_string)
-key_bytes = bytearray.fromhex(key_string)
+input_bytes = bytearray(input_file.read())
+key_bytes = bytearray(key_file.read())
 
 # Generate expanded key
 expanded_key = expand_key(key_bytes, key_size)
@@ -48,8 +47,8 @@ else:
     output_bytes = decrypt(input_bytes, expanded_key, key_size)
 
 # Write output to file
-output_bytes = [ str('%02X' % byte) for byte in output_bytes ]
-output_file.write("".join(output_bytes))
+output_bytes = array.array('B', output_bytes)
+output_file.write(output_bytes)
 
 # Close files
 input_file.close()
