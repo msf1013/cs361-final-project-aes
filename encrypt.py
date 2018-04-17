@@ -2,8 +2,11 @@ from common import sbox, gfp2, gfp3
 
 def encrypt(input_bytes, expanded_key, key_size):
     # Add padding if necessary
-    if len(input_bytes) % 16 != 0:
-        input_bytes.extend([0] * (16 - (len(input_bytes) % 16)))
+    # (Zero Length padding)
+    pad = 16 - (len(input_bytes) % 16)
+    input_bytes.extend([0] * pad)
+    input_bytes[-1] = pad
+        
     # Encrypt each block of input plaintext
     output_bytes = []
     for i in range(0, len(input_bytes), 16):

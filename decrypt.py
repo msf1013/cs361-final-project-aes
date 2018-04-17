@@ -9,6 +9,8 @@ def decrypt(input_bytes, expanded_key, key_size):
         for c in range(0, 4):
             for r in range(0, 4):
                 output_bytes.append(partial[r][c])
+    
+    output_bytes = output_bytes[: -1 * output_bytes[-1] ]
 
     return output_bytes
 
