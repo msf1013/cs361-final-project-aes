@@ -38,13 +38,21 @@ input_bytes = bytearray(input_file.read())
 key_bytes = bytearray(key_file.read())
 
 # Generate expanded key
-expanded_key = expand_key(key_bytes, key_size)
+n_k = 0
+n_r = 0
+if key_size == 128:
+    n_k = 4
+    n_r = 10
+elif key_size == 256:
+    n_k = 8
+    n_r = 14
+expanded_key = expand_key(key_bytes, key_size, n_k, n_r)
 
 # Call encryption or decryption algorithm accordingly
 if mode == 'encrypt':
-    output_bytes = encrypt(input_bytes, expanded_key, key_size)
+    output_bytes = encrypt(input_bytes, expanded_key, key_size, n_r)
 else:
-    output_bytes = decrypt(input_bytes, expanded_key, key_size)
+    output_bytes = decrypt(input_bytes, expanded_key, key_size, n_r)
 
 # Write output to file
 output_bytes = array.array('B', output_bytes)

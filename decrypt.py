@@ -1,28 +1,30 @@
-from common import inv_sbox, gfp9, gfp11, gfp13, gfp14
+from common import inv_s_box, gfp_9, gfp_11, gfp_13, gfp_14
 
-def decrypt(input_bytes, expanded_key, key_size):
-    # Encrypt each block of input plaintext
+# Iterate over ciphertext data blocks and apply decryption algorithm
+# according to AES standard.
+# Returns decrypted list of bytes.
+def decrypt(input_bytes, expanded_key, key_size, n_r):
+    # Decrypt each block of input plaintext
     output_bytes = []
     for i in range(0, len(input_bytes), 16):
-        partial = decipher(input_bytes[i:i+16], key_size, expanded_key)
+        # Decipher block of 16 bytes
+        partial = decipher(input_bytes[i:i+16], key_size, expanded_key, n_r)
         
+        # Re-group bytes in column-first order
         for c in range(0, 4):
             for r in range(0, 4):
                 output_bytes.append(partial[r][c])
     
+    # Remove padding bytes from output
     output_bytes = output_bytes[: -1 * output_bytes[-1] ]
 
     return output_bytes
 
-def decipher(input_bytes, key_size, expanded_key):
-    n_r = 0
-    if key_size == 128:
-        n_r = 10
-    elif key_size == 256:
-        n_r = 14
-    
+# Decrypt block of 16 bytes
+def decipher(input_bytes, key_size, expanded_key, n_r):
     state = [[0 for _ in range(0, 4)] for _ in range(0,4)]
     next = 0
+    # Grab first 16 bytes of data in column-first order
     for j in range(0, 4):
         for i in range(0, 4):
             state[i][j] = input_bytes[next]
@@ -30,6 +32,7 @@ def decipher(input_bytes, key_size, expanded_key):
     
     state = add_round_key(state, expanded_key, n_r * 4 * 4)
     
+    # Apply rounds of inverse operations as stated in AES standard
     for round in range(n_r - 1, 0, -1):
         state = inv_shift_rows(state)
         state = inv_sub_bytes(state)
@@ -43,7 +46,6 @@ def decipher(input_bytes, key_size, expanded_key):
     return state
 
 def add_round_key(state, expanded_key, index):
-    
     for j in range(0, 4):
         for i in range(0, 4):
             state[i][j] = state[i][j] ^ expanded_key[index]
@@ -62,22 +64,23 @@ def inv_shift_rows(state):
 def inv_sub_bytes(state):
     for j in range(0, 4):
         for i in range(0, 4):
-            state[i][j] = inv_sbox[ state[i][j] ]
+            state[i][j] = inv_s_box[ state[i][j] ]
     return state
 
 def inv_mix_columns(state):
     temp = [0 for _ in range(0, 4)]
     
     for i in range(0, 4):
-        temp[0] = (gfp14[state[0][i]] ^ gfp11[state[1][i]]) ^ \
-                  (gfp13[state[2][i]] ^ gfp9[state[3][i]])
-        temp[1] = (gfp9[state[0][i]] ^ gfp14[state[1][i]]) ^ \
-                  (gfp11[state[2][i]] ^ gfp13[state[3][i]])
-        temp[2] = (gfp13[state[0][i]] ^ gfp9[state[1][i]]) ^ \
-                  (gfp14[state[2][i]] ^ gfp11[state[3][i]])
-        temp[3] = (gfp11[state[0][i]] ^ gfp13[state[1][i]]) ^ \
-                  (gfp9[state[2][i]] ^ gfp14[state[3][i]])
+        temp[0] = (gfp_14[state[0][i]] ^ gfp_11[state[1][i]]) ^ \
+                  (gfp_13[state[2][i]] ^ gfp_9[state[3][i]])
+        temp[1] = (gfp_9[state[0][i]]  ^ gfp_14[state[1][i]]) ^ \
+                  (gfp_11[state[2][i]] ^ gfp_13[state[3][i]])
+        temp[2] = (gfp_13[state[0][i]] ^ gfp_9[state[1][i]]) ^ \
+                  (gfp_14[state[2][i]] ^ gfp_11[state[3][i]])
+        temp[3] = (gfp_11[state[0][i]] ^ gfp_13[state[1][i]]) ^ \
+                  (gfp_9[state[2][i]]  ^ gfp_14[state[3][i]])
         
+        # Copy to state
         for j in range(0, 4):
             state[j][i] = temp[j]
     
