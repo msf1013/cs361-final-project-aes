@@ -1,23 +1,19 @@
 # AES implementation in Python
 
-## cs361-final-project-aes
+CS 361 Final Project: AES implementation
 
-Final Project: AES implementation
-Name: Mario Sergio Fuentes Juarez and Vishal Gullapalli
+Authors: Mario Sergio Fuentes Juarez and Vishal Gullapalli
 
 ## Description
 
-The scripts in this repository implement the AES encryption and decryption
-procedures defined in https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf
+The scripts in this repository implement the AES encryption and decryption procedures defined in https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf
 
-Our implementation specifically uses the ECB mode, and conforms to the standard
-algorithms in FIPS 197.
+Our implementation specifically uses the ECB mode, and conforms to the standard algorithms in FIPS 197.
 
 ## How to use
 
 a) The program was written in Python 3.6, and tested in Windows and Ubuntu platforms.
-   All libraries are standard language libraries, so no special imports or installation
-   are needed.   
+   All libraries are standard, so no special imports or installation are needed.   
    
    The program can be executed in the following way:
 
@@ -27,13 +23,13 @@ a) The program was written in Python 3.6, and tested in Windows and Ubuntu platf
 
 b) The program has 5 arguments which must be supplied via command line:
 
-   1) keysize: An integer, either 128 or 256, representing the key size in bits.
-   2) keyfile: Name of file containing the key.
-   3) inputfile: Name of file containing input plaintext/ciphertext to process,
+   1) `keysize`: An integer, either 128 or 256, representing the key size in bits.
+   2) `keyfile`: Name of file containing the key.
+   3) `inputfile`: Name of file containing input plaintext/ciphertext to process,
                  depending on whether mode is encrypt/decrypt.
-   4) outputfile: Name of file where the output plaintext/ciphertext will be produced,
+   4) `outputfile`: Name of file where the output plaintext/ciphertext will be produced,
                   depending on whether mode is encrypt/decrypt.
-   5) mode: A string, either 'encrypt' or 'decrypt'.
+   5) `mode`: A string, either 'encrypt' or 'decrypt'.
 
 Sample call:
 
