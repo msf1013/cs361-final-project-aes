@@ -1,8 +1,8 @@
 # AES implementation in Python
 
-CS 361 Final Project: AES implementation
+**CS 361 Final Project:** AES implementation
 
-Authors: Mario Sergio Fuentes Juarez and Vishal Gullapalli
+**Authors:** Mario Sergio Fuentes Juarez and Vishal Gullapalli
 
 ## Description
 
@@ -18,11 +18,11 @@ encryption/decryption pipeline outlined in the reference spec. 10 rounds are run
 128 bits long keys, whereas 14 rounds are run for 256 bits long keys, and each round
 consists of the following operations over the input block:
 
-1) Substitute bytes: Applying a byte-by-byte transformation using a pre-computed
+1) **Substitute bytes**: Applying a byte-by-byte transformation using a pre-computed
    look-up table.
-2) Shift rows: By performing a cyclical shift as defined in the spec.
-3) Mix columns: Using pre-computed look-up tables for Galois Field multiplication.
-4) Add round key: Adding the round key to the state data block via XOR operations.
+2) **Shift rows**: By performing a cyclical shift as defined in the spec.
+3) **Mix columns**: Using pre-computed look-up tables for Galois Field multiplication.
+4) **Add round key**: Adding the round key to the state data block via XOR operations.
 
 (It is worth noting that inverse operations where defined for decryption).
 
