@@ -11,7 +11,7 @@ def encrypt(input_bytes, expanded_key, key_size, n_r):
         input_bytes: A byte array containing message to be encrypted.
         expanded_key: A byte array containing the key schedule.
         key_size: An integer, either 128 or 256.
-        n_r: An integer, either 10 or 14, representing the number of roungs
+        n_r: An integer, either 10 or 14, representing the number of rounds
              that the encryption/decryption algorithm will perform.
 
     Returns:
@@ -46,7 +46,7 @@ def cipher(input_bytes, key_size, expanded_key, n_r):
                      decrypted.
         key_size: An integer, either 128 or 256.
         expanded_key: A byte array containing the key schedule.
-        n_r: An integer, either 10 or 14, representing the number of roungs
+        n_r: An integer, either 10 or 14, representing the number of rounds
              that the encryption/decryption algorithm will perform.
 
     Returns:

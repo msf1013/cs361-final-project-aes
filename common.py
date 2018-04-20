@@ -7,7 +7,7 @@ def expand_key(key_bytes, key_size, n_k, n_r):
         key_bytes: A byte array.
         key_size: An integer, either 128 or 256.
         n_k: An integer, 4 o 8, representing number of words in the cipher key.
-        n_r: An integer, either 10 or 14, representing the number of roungs
+        n_r: An integer, either 10 or 14, representing the number of rounds
              that the encryption/decryption algorithm will perform.
 
     Returns:
