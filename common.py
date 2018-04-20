@@ -48,6 +48,28 @@ def expand_key(key_bytes, key_size, n_k, n_r):
     return expanded_key
 
 
+# Add round key to state operation, shared between encryption and
+# decryption procedures.
+def add_round_key(state, expanded_key, index):
+    for j in range(0, 4):
+        for i in range(0, 4):
+            state[i][j] = state[i][j] ^ expanded_key[index]
+            index += 1
+    return state
+
+# Produce initial state by grabbing the first input block bytes.
+# Shared between encryption and decryption procedures.
+def generate_initial_state(input_bytes):
+    state = [[0 for _ in range(0, 4)] for _ in range(0, 4)]
+    next_byte = 0
+    # Grab first 16 bytes of data in column-first order
+    for j in range(0, 4):
+        for i in range(0, 4):
+            state[i][j] = input_bytes[next_byte]
+            next_byte += 1
+    return state
+
+
 # Congruence lookup table
 # Constructed as suggested in Chapter 22, page 131 of:
 # http://www.cs.utsa.edu/~wagner/lawsbookcolor/laws.pdf
