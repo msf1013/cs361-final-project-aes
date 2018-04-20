@@ -4,6 +4,8 @@
 
 **Authors:** Mario Sergio Fuentes Juarez and Vishal Gullapalli
 
+**Link to repository in GitHub:** https://github.com/msf1013/cs361-final-project-aes
+
 ## Description
 
 The scripts in this repository implement the AES encryption and decryption procedures defined in https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf
