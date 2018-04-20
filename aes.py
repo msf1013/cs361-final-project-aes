@@ -68,7 +68,7 @@ def main():
     elif key_size == 256:
         n_k = 8
         n_r = 14
-    expanded_key = expand_key(key_bytes, key_size, n_k, n_r)
+    expanded_key = expand_key(key_bytes, n_k, n_r)
 
     # Call encryption or decryption algorithm accordingly
     if mode == 'encrypt':

@@ -4,7 +4,7 @@ This script contains the methods required for data decryption according to
 the AES spec: https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf
 """
 
-from common import inv_s_box, gfp_9, gfp_11, gfp_13, gfp_14, add_round_key
+from common import INV_S_BOX, GFP_9, GFP_11, GFP_13, GFP_14, add_round_key
 from common import generate_initial_state
 
 def decrypt(input_bytes, expanded_key, n_r):
@@ -88,7 +88,7 @@ def inv_shift_rows(state):
 def inv_sub_bytes(state):
     for j in range(0, 4):
         for i in range(0, 4):
-            state[i][j] = inv_s_box[state[i][j]]
+            state[i][j] = INV_S_BOX[state[i][j]]
     return state
 
 
@@ -96,14 +96,14 @@ def inv_mix_columns(state):
     temp = [0 for _ in range(0, 4)]
 
     for i in range(0, 4):
-        temp[0] = (gfp_14[state[0][i]] ^ gfp_11[state[1][i]]) ^ \
-                  (gfp_13[state[2][i]] ^ gfp_9[state[3][i]])
-        temp[1] = (gfp_9[state[0][i]] ^ gfp_14[state[1][i]]) ^ \
-                  (gfp_11[state[2][i]] ^ gfp_13[state[3][i]])
-        temp[2] = (gfp_13[state[0][i]] ^ gfp_9[state[1][i]]) ^ \
-                  (gfp_14[state[2][i]] ^ gfp_11[state[3][i]])
-        temp[3] = (gfp_11[state[0][i]] ^ gfp_13[state[1][i]]) ^ \
-                  (gfp_9[state[2][i]] ^ gfp_14[state[3][i]])
+        temp[0] = (GFP_14[state[0][i]] ^ GFP_11[state[1][i]]) ^ \
+                  (GFP_13[state[2][i]] ^ GFP_9[state[3][i]])
+        temp[1] = (GFP_9[state[0][i]] ^ GFP_14[state[1][i]]) ^ \
+                  (GFP_11[state[2][i]] ^ GFP_13[state[3][i]])
+        temp[2] = (GFP_13[state[0][i]] ^ GFP_9[state[1][i]]) ^ \
+                  (GFP_14[state[2][i]] ^ GFP_11[state[3][i]])
+        temp[3] = (GFP_11[state[0][i]] ^ GFP_13[state[1][i]]) ^ \
+                  (GFP_9[state[2][i]] ^ GFP_14[state[3][i]])
 
         # Copy to state
         for j in range(0, 4):

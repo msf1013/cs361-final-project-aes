@@ -4,7 +4,7 @@ This script contains the methods required for data encryption according to
 the AES spec: https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf
 """
 
-from common import s_box, gfp_2, gfp_3, add_round_key, generate_initial_state
+from common import S_BOX, GFP_2, GFP_3, add_round_key, generate_initial_state
 
 def encrypt(input_bytes, expanded_key, n_r):
     """Encrypts input bytes, producing a ciphered message based on the provided
@@ -77,7 +77,7 @@ def cipher(input_bytes, expanded_key, n_r):
 def sub_bytes(state):
     for j in range(0, 4):
         for i in range(0, 4):
-            state[i][j] = s_box[state[i][j]]
+            state[i][j] = S_BOX[state[i][j]]
     return state
 
 
@@ -95,14 +95,14 @@ def mix_columns(state):
     temp = [0 for _ in range(0, 4)]
 
     for i in range(0, 4):
-        temp[0] = gfp_2[state[0][i]] ^ gfp_3[state[1][i]] ^ \
+        temp[0] = GFP_2[state[0][i]] ^ GFP_3[state[1][i]] ^ \
                   state[2][i] ^ state[3][i]
-        temp[1] = state[0][i] ^ gfp_2[state[1][i]] ^ \
-                  gfp_3[state[2][i]] ^ state[3][i]
+        temp[1] = state[0][i] ^ GFP_2[state[1][i]] ^ \
+                  GFP_3[state[2][i]] ^ state[3][i]
         temp[2] = state[0][i] ^ state[1][i] ^ \
-                  gfp_2[state[2][i]] ^ gfp_3[state[3][i]]
-        temp[3] = gfp_3[state[0][i]] ^ state[1][i] ^ \
-                  state[2][i] ^ gfp_2[state[3][i]]
+                  GFP_2[state[2][i]] ^ GFP_3[state[3][i]]
+        temp[3] = GFP_3[state[0][i]] ^ state[1][i] ^ \
+                  state[2][i] ^ GFP_2[state[3][i]]
 
         # Copy to state
         for j in range(0, 4):
