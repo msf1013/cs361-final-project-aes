@@ -31,13 +31,21 @@ consists of the following operations over the input block:
 All of the resulting data blocks are then concatenated to produce the output
 cipher/plain text.
 
-Finally, as suggested by our previous notes, we made use of a number of pre-computed
+As suggested by our previous notes, we made use of a number of pre-computed
 look-up tables for the following operations:
 
 - Bytes substitution
 - Inverse bytes substitution
 - Round constant word array used for key expansion
 - Multiplication by 2, 3, 9, 11, 13, and 14 in the Galois Field.
+
+Finally, we handle arbitrary file sizes (that is, not necessarily having a number of
+bytes multiple of 16), by using *Zero Length* padding: 0x00 bytes are appended to the
+input message to make its length a multiple of 16, and the very last byte's value is the
+number of bytes that were added for padding. Following this technique, for
+example, a message whose length is equal to 10 mod 16 will have 6 padding bytes (5 zeros
+and a final byte with value 6); whereas a message whose length is multiple of 16 will have
+16 padding bytes (15 zeros and a final byte with value 16).
 
 ## How to use
 
