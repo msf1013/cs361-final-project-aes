@@ -1,4 +1,9 @@
-# Generate 'key schedule' to be fed to encryption/decryption algorithms
+"""AES Python implementation: common utilities
+
+This script contains shared data structures and algorithms used in the
+encrypt and decrypt procedures.
+"""
+
 def expand_key(key_bytes, key_size, n_k, n_r): 
     """Generates the extended key/key schedule for the given key and
        key length.

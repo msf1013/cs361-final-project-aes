@@ -1,5 +1,10 @@
-from common import s_box, gfp_2, gfp_3, add_round_key
-from common import generate_initial_state
+"""AES Python implementation: encryption procedure
+
+This script contains the methods required for data encryption according to
+the AES spec: https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf
+"""
+
+from common import s_box, gfp_2, gfp_3, add_round_key, generate_initial_state
 
 def encrypt(input_bytes, expanded_key, n_r):
     """Encrypts input bytes, producing a ciphered message based on the provided

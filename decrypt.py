@@ -1,7 +1,12 @@
-from common import inv_s_box, gfp_9, gfp_11, gfp_13, gfp_14, add_round_key, generate_initial_state
+"""AES Python implementation: decryption procedure
 
+This script contains the methods required for data decryption according to
+the AES spec: https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf
+"""
 
-# Returns decrypted list of bytes.
+from common import inv_s_box, gfp_9, gfp_11, gfp_13, gfp_14, add_round_key
+from common import generate_initial_state
+
 def decrypt(input_bytes, expanded_key, n_r):
     """Decrypts input bytes, producing recovered message based on the provided
         key.

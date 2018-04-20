@@ -1,6 +1,25 @@
 #!/usr/bin/env python3
 
-# AES algorithm
+"""AES Python implementation
+
+This script implement the AES encryption and decryption procedures defined in
+https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf
+
+This implementation specifically uses the ECB mode, and conforms to the
+standard algorithms in FIPS 197.
+
+The script expects the following arguments:
+
+   1) keysize: An integer, either 128 or 256, representing the key size in
+               bits.
+   2) keyfile: Name of file containing the key.
+   3) inputfile: Name of file containing input plaintext/ciphertext to process,
+                 depending on whether mode is encrypt/decrypt.
+   4) outputfile: Name of file where the output plaintext/ciphertext will be
+                  produced, depending on whether mode is encrypt/decrypt.
+   5) mode: A string, either 'encrypt' or 'decrypt'.
+"""
+
 import sys
 import array
 from common import expand_key
